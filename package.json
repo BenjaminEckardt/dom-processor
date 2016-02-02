@@ -1,0 +1,24 @@
+{
+  "name": "dom-processor",
+  "version": "0.1.0-SNAPSHOT",
+  "description": "Simple processor for HTML- and XML-DOMs.",
+  "main": "dom-processor.js",
+  "scripts": {
+    "test": "mocha test/**/*.test.js"
+  },
+  "keywords": [
+    "dom",
+    "html",
+    "processor",
+    "template",
+    "replace"
+  ],
+  "author": "Benjamin Eckardt <Benjamin.Eckardt@gmx.net> (https://github.com/BenjaminEckardt)",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "~0.19.0"
+  },
+  "devDependencies": {
+    "mocha": "~2.4.5"
+  }
+}
