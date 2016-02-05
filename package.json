@@ -6,6 +6,10 @@
   "scripts": {
     "test": "mocha test/**/*.test.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BenjaminEckardt/dom-processor"
+  },
   "keywords": [
     "dom",
     "html",
