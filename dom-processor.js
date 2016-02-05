@@ -1,6 +1,5 @@
 'use strict';
 var cheerio = require('cheerio');
-var fs = require('fs');
 
 function DomPocessor(configLoader) {
   this.process = function(html, currentPath) {
