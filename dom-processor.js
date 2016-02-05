@@ -11,7 +11,7 @@ module.exports = {
     var configs = configFactory(currentPath);
     configs.forEach(function(conf) {
       var $el = $(conf.selector);
-      $el.replaceWith(conf.replace($el, $));
+      $el.replaceWith(conf.replace($el));
     });
     return $.html();
   }
