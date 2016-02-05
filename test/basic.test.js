@@ -1,29 +1,29 @@
 var assert = console.assert;
-var domProcessor = require('../dom-processor');
+var DomProcessor = require('../dom-processor');
 
 describe('basic configuration', function() {
 
-  var configFactory = function() {
-    return [{
-      selector: 'div',
-      replace: function() {
-        return '<span></span>';
-      }
-    }];
+  var configLoader = {
+    load: function() {
+      return [{
+        selector: 'div',
+        replace: function() {
+          return '<span></span>';
+        }
+      }];
+    }
   };
 
-  beforeEach(function() {
-    domProcessor.config(configFactory);
-  });
+  var processor = new DomProcessor(configLoader);
 
   it('should replace <div> with <span>', function() {
-    var result = domProcessor.process('<div></div>');
+    var result = processor.process('<div></div>');
 
     assert(result === '<span></span>');
   });
 
   it('should leave unmatched elements unchanged', function() {
-    var result = domProcessor.process('<p></p>');
+    var result = processor.process('<p></p>');
 
     assert(result === '<p></p>');
   });
