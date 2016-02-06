@@ -1,0 +1,9 @@
+{
+  "bitwise": true,
+  "curly": true,
+  "eqeqeq": true,
+  "node": true,
+  "strict": true,
+  "unused": true,
+  "undef": true
+}
