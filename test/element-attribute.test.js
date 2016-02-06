@@ -1,3 +1,4 @@
+'use strict';
 var assert = console.assert;
 var DomProcessor = require('../dom-processor');
 
