@@ -1,6 +1,6 @@
 {
   "name": "dom-processor",
-  "version": "0.2.0",
+  "version": "0.3.0-SNAPSHOT",
   "description": "Simple processor for HTML- and XML-DOMs.",
   "main": "dom-processor.js",
   "scripts": {
