@@ -2,37 +2,25 @@
 var assert = console.assert;
 var DomProcessor = require('../dom-processor');
 
-describe('configuration using current path', function() {
-  var FILE = 'aFile';
-  var ANOTHER_FILE = 'anotherFile';
+describe('configuration using attributes of selected elements', function() {
 
   var configLoader = {
-    load: function(currentPath) {
-      if(currentPath === FILE) {
-        return [{
-          selector: 'div',
-          replace: function() { return '<span></span>'; }
-        }];
-      } else {
-        return [{
-          selector: 'div',
-          replace: function() { return '<p></p>'; }
-        }];
-      }
+    load: function() {
+      return [{
+        selector: 'div',
+        replace: function($element) {
+          var id =  $element.attr('id');
+          return '<span id="' + id + '"></span>';
+        }
+      }];
     }
   };
 
   var processor = new DomProcessor(configLoader);
 
-  it('should replace <div> with <span>', function() {
-    var result = processor.process('<div></div>', FILE);
+  it('should replace <div> with <span> and keep the `id`', function() {
+    var result = processor.process('<div id="foo"></div>');
 
-    assert(result === '<span></span>');
-  });
-
-  it('should replace <div> with <p>', function() {
-    var result = processor.process('<div></div>', ANOTHER_FILE);
-
-    assert(result === '<p></p>');
+    assert(result === '<span id="foo"></span>');
   });
 });
