@@ -1,4 +1,5 @@
 # dom-processor [![Build Status](https://travis-ci.org/BenjaminEckardt/dom-processor.svg?branch=master)](https://travis-ci.org/BenjaminEckardt/dom-processor)
+> Simple processor for replacing elements in html using [cheerio](https://github.com/cheeriojs/cheerio).
 
 ## Install
 ```sh
