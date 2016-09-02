@@ -1,4 +1,15 @@
-# dom-processor [![Build Status](https://travis-ci.org/BenjaminEckardt/dom-processor.svg?branch=master)](https://travis-ci.org/BenjaminEckardt/dom-processor)
+# dom-processor
+[![Build Status][travis-image]][travis-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
+[![npm Downloads][download-image]][download-url]
+
+[travis-image]: https://travis-ci.org/BenjaminEckardt/dom-processor.svg?branch=master
+[travis-url]: https://travis-ci.org/BenjaminEckardt/dom-processor
+[coveralls-image]: https://coveralls.io/repos/github/BenjaminEckardt/dom-processor/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/github/BenjaminEckardt/dom-processor?branch=master
+[download-image]: https://img.shields.io/npm/dm/dom-processor.svg
+[download-url]: https://npmjs.org/package/dom-processor
+
 > Simple processor for replacing elements in html using [cheerio](https://github.com/cheeriojs/cheerio).
 
 ## Install
