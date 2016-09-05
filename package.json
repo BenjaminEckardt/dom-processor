@@ -21,12 +21,12 @@
   "author": "Benjamin Eckardt <Benjamin.Eckardt@gmx.net> (https://github.com/BenjaminEckardt)",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^0.20.0"
+    "cheerio": "0.22.0"
   },
   "devDependencies": {
-    "coveralls": "^2.11.12",
-    "istanbul": "^0.4.5",
-    "jshint": "^2.9.3",
-    "mocha": "^3.0.2"
+    "coveralls": "~2.11.12",
+    "istanbul": "~0.4.5",
+    "jshint": "~2.9.3",
+    "mocha": "~3.0.2"
   }
 }
