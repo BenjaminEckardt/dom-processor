@@ -3,7 +3,7 @@ var cheerio = require('cheerio');
 
 function DomPocessor(configLoader) {
   this.process = function(html, currentPath) {
-    var $ = cheerio.load(html);
+    var $ = cheerio.load(html, configLoader.loadConfigurations);
     var configs = configLoader.load(currentPath);
     configs.forEach(function(conf) {
       var $el = $(conf.selector);

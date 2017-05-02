@@ -34,11 +34,13 @@ console.log(result);
 ```
 
 ### config-loader
-An object with a `load`-method which is called with the path of the currently processed file.
+An object with a `load`-method which is called with the path of the currently processed file and additional load configurations for cheerio.
 
 The `load`-method returns an `Array` of replacement-configurations. Each replacement has two properties:
 - `selector`: [Selector](https://github.com/cheeriojs/cheerio#selectors) of the elements to be replaced.
 - `replace`: Function to create and return the new element. It is called with matching [element](https://github.com/cheeriojs/cheerio#attributes) as first argument.
+
+The `loadConfigurations`-object cointains configurations for cheerio
 
 ```js
 function load(filePath) {
@@ -50,8 +52,11 @@ function load(filePath) {
   }];
 }
 
+let loadConfigurations = {decodeEntities: false};
+
 module.exports = {
-  load: load
+  load: load,
+  loadConfigurations: loadConfigurations
 };
 ```
 
