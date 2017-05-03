@@ -52,7 +52,7 @@ function load(filePath) {
   }];
 }
 
-let loadConfigurations = {decodeEntities: false};
+let loadConfigurations = { decodeEntities: false };
 
 module.exports = {
   load: load,
