@@ -6,9 +6,15 @@ function DomPocessor(configLoader) {
     var $ = cheerio.load(html, configLoader.loadConfigurations);
     var configs = configLoader.load(currentPath);
     configs.forEach(function(conf) {
-      var $el = $(conf.selector);
-      var result = typeof conf.replace === 'function' ? conf.replace($el) : conf.replace;
-      $el.replaceWith(result);
+      var $elements = $(conf.selector);
+      var result;
+      var $element;
+      $elements.each(function (i, el) {
+          $element = $(el);
+          result = typeof conf.replace === 'function' ? conf.replace($element) : conf.replace;
+          $element.replaceWith(result);
+      });
+
     });
     return $.html();
   };
