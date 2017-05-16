@@ -23,9 +23,8 @@ describe('multiple element test (replace function should get the corresponding e
         assert(result === 'test');
     });
 
-    it('should replace <div text="test"></div><div text="secondtest"></div> with test-secondtest', function() {
+    it('should replace <div text="test"></div><div text="-secondtest"></div> with test-secondtest', function() {
         var result = processor.process('<div text="test"></div><div text="-secondtest"></div>');
         assert(result === 'test-secondtest');
     });
-
 });
