@@ -1,29 +1,27 @@
-'use strict';
-var assert = console.assert;
-var DomProcessor = require('../dom-processor');
+import test from 'ava';
+import DomProcessor from '../dom-processor';
 
-describe('configuration using string replace', function() {
-
-  var configLoader = {
-    load: function() {
-      return [{
-        selector: 'div',
-        replace: '<span></span>'
-      }];
-    }
-  };
-
-  var processor = new DomProcessor(configLoader);
-
-  it('should replace <div> with <span>', function() {
-    var result = processor.process('<div></div>');
-
-    assert(result === '<span></span>');
-  });
-
-  it('should leave unmatched elements unchanged', function() {
-    var result = processor.process('<p></p>');
-
-    assert(result === '<p></p>');
-  });
+test('replacement of div with span', t => {
+    const processor = createStringBasedReplaceProcessor();
+    const result = processor.process('<div></div>');
+    t.is(result, '<span></span>');
 });
+
+test('unchanged non-matching elements', t => {
+    const processor = createStringBasedReplaceProcessor();
+    const result = processor.process('<p></p>');
+    t.is(result, '<p></p>');
+});
+
+const createStringBasedReplaceProcessor = () => {
+    const configLoader = {
+        load: () => {
+            return [{
+                selector: 'div',
+                replace: '<span></span>'
+            }];
+        }
+    };
+
+    return new DomProcessor(configLoader);
+};

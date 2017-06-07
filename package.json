@@ -5,7 +5,7 @@
   "main": "dom-processor.js",
   "scripts": {
     "pretest": "jshint **/*.js",
-    "test": "mocha test/**/*.test.js"
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -24,9 +24,9 @@
     "cheerio": "0.22.0"
   },
   "devDependencies": {
+    "ava": "~0.19.1",
     "coveralls": "~2.11.12",
     "istanbul": "~0.4.5",
-    "jshint": "~2.9.3",
-    "mocha": "~3.0.2"
+    "jshint": "~2.9.3"
   }
 }

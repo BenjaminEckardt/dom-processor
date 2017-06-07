@@ -1,26 +1,24 @@
-'use strict';
-var assert = console.assert;
-var DomProcessor = require('../dom-processor');
+import test from 'ava';
+import DomProcessor from '../dom-processor';
 
-describe('configuration using attributes of selected elements', function() {
-
-  var configLoader = {
-    load: function() {
-      return [{
-        selector: 'div',
-        replace: function($element) {
-          var id =  $element.attr('id');
-          return '<span id="' + id + '"></span>';
-        }
-      }];
-    }
-  };
-
-  var processor = new DomProcessor(configLoader);
-
-  it('should replace <div> with <span> and keep the `id`', function() {
-    var result = processor.process('<div id="foo"></div>');
-
-    assert(result === '<span id="foo"></span>');
-  });
+test('replacement using attributes of input element', t => {
+    const processor = createAttributeUsingProcessor();
+    const result = processor.process('<div id="foo"></div>');
+    t.is(result, '<span id="foo"></span>');
 });
+
+const createAttributeUsingProcessor = () => {
+    const configLoader = {
+        load: () => {
+            return [{
+                selector: 'div',
+                replace: ($element) => {
+                    const id = $element.attr('id');
+                    return `<span id=${id}></span`;
+                }
+            }];
+        }
+    };
+
+    return new DomProcessor(configLoader);
+};
