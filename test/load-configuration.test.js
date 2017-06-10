@@ -1,60 +1,59 @@
-import test from 'ava';
-import DomProcessor from '../dom-processor';
+'use strict';
+var assert = console.assert;
+var DomProcessor = require('../dom-processor');
 
-test('decode entities (replace & with &amp;)', t => {
-    const processor = createDecodingProcessor();
-    const result = processor.process('&&');
-    t.is(result, '&amp;&amp;');
+describe('load configuration', function() {
+
+  var configLoader = {
+    load: function() {
+      return [{
+        selector: 'div',
+        replace: function() {
+          return '<span>&&</span>';
+        }
+      }];
+    }
+  };
+
+  var processor = new DomProcessor(configLoader);
+
+  it('should decode entities (replace & with &amp;)', function() {
+    configLoader.loadConfigurations = {decodeEntities: true};
+    var result = processor.process('&&');
+    assert(result === '&amp;&amp;');
+  });
+
+  it('should not decode entities (not replace & with &amp;)', function() {
+    configLoader.loadConfigurations = {decodeEntities: false};
+    var result = processor.process('&&');
+    assert(result === '&&');
+  });
+
+  it('should replace <div> with <span> and decode entities', function() {
+    configLoader.loadConfigurations = {decodeEntities: true};
+    var result = processor.process('<div></div>');
+
+    assert(result === '<span>&amp;&amp;</span>');
+  });
+
+  it('should replace <div> with <span> and not decode entities', function() {
+    configLoader.loadConfigurations = {decodeEntities: false};
+    var result = processor.process('<div></div>');
+
+    assert(result === '<span>&&</span>');
+  });
+
+  it('should leave unmatched elements unchanged and decode entities', function() {
+    configLoader.loadConfigurations = {decodeEntities: true};
+    var result = processor.process('<p>&&</p>');
+
+    assert(result === '<p>&amp;&amp;</p>');
+  });
+
+  it('should leave unmatched elements unchanged and not decode entities', function() {
+    configLoader.loadConfigurations = {decodeEntities: false};
+    var result = processor.process('<p>&&</p>');
+
+    assert(result === '<p>&&</p>');
+  });
 });
-
-test('not decode entities (not replace & with &amp;)', t => {
-    const processor = createNonDecodingProcessor();
-    const result = processor.process('&&');
-    t.is(result, '&&');
-});
-
-test('replace <div> with <span> and decode entities', t => {
-    const processor = createDecodingProcessor();
-    const result = processor.process('<div></div>');
-    t.is(result, '<span>&amp;&amp;</span>');
-});
-
-test('replace <div> with <span> and not decode entities', t => {
-    const processor = createNonDecodingProcessor();
-    const result = processor.process('<div></div>');
-    t.is(result, '<span>&&</span>');
-});
-
-test('leave unmatched elements unchanged and decode entities', t => {
-    const processor = createDecodingProcessor();
-    const result = processor.process('<p>&&</p>');
-    t.is(result, '<p>&amp;&amp;</p>');
-});
-
-test('leave unmatched elements unchanged and not decode entities', t => {
-    const processor = createNonDecodingProcessor();
-    const result = processor.process('<p>&&</p>');
-    t.is(result, '<p>&&</p>');
-});
-
-const createDecodingProcessor = () => {
-    return createProcessor(true);
-};
-
-const createNonDecodingProcessor = () => {
-    return createProcessor(false);
-};
-
-const createProcessor = (decodeEntities) => {
-    const configLoader = {
-        load: () => {
-            return [{
-                selector: 'div',
-                replace: () => { return '<span>&&</span>'; }
-            }];
-        },
-        loadConfigurations: { decodeEntities }
-    };
-
-    return new DomProcessor(configLoader);
-};
