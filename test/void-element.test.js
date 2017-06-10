@@ -1,25 +1,21 @@
-'use strict';
-var assert = console.assert;
-var DomProcessor = require('../dom-processor');
+import test from 'ava';
+import DomProcessor from '../dom-processor';
 
-describe('void elements', function() {
-
-  var configLoader = {
-    load: function() {
-      return [{
-        selector: 'img',
-        replace: function() {
-          return '<input>';
-        }
-      }];
-    }
-  };
-
-  var processor = new DomProcessor(configLoader);
-
-  it('should replace <img/> with <input>', function() {
-    var result = processor.process('<img/>');
-
-    assert(result === '<input>');
-  });
+test('replacement of void elements', t => {
+    const processor = createImgToInputProcessor();
+    const result = processor.process('<img/>');
+    t.is(result, '<input>');
 });
+
+const createImgToInputProcessor = () => {
+    const configLoader = {
+        load: () => {
+            return [{
+                selector: 'img',
+                replace: () => { return '<input>'; }
+            }];
+        }
+    };
+
+    return new DomProcessor(configLoader);
+};

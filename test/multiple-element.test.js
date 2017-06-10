@@ -1,30 +1,27 @@
-'use strict';
-var assert = console.assert;
-var DomProcessor = require('../dom-processor');
+import test from 'ava';
+import DomProcessor from '../dom-processor';
 
-describe('multiple element test (replace function should get the corresponding element)', function() {
+test('replace `<div text="test">` with `test`', t => {
+    const processor = createAttributeExtractingProcessor();
+    const result = processor.process('<div text="test">');
+    t.is(result, 'test');
+});
 
-    var configLoader = {
-        load: function() {
+test('replace multiple matching elements with corresponding attribute content', t => {
+    const processor = createAttributeExtractingProcessor();
+    const result = processor.process('<div text="first"></div><div text="second"></div>');
+    t.is(result, 'firstsecond');
+});
+
+const createAttributeExtractingProcessor = () => {
+    const configLoader = {
+        load: () => {
             return [{
                 selector: 'div',
-                replace: function($element) {
-                    return $element.attr('text');
-                }
+                replace: ($element) => { return $element.attr('text'); }
             }];
         }
     };
 
-    var processor = new DomProcessor(configLoader);
-
-    it('should replace <div text="test"> with test', function() {
-        var result = processor.process('<div text="test"></div>');
-
-        assert(result === 'test');
-    });
-
-    it('should replace <div text="test"></div><div text="-secondtest"></div> with test-secondtest', function() {
-        var result = processor.process('<div text="test"></div><div text="-secondtest"></div>');
-        assert(result === 'test-secondtest');
-    });
-});
+    return new DomProcessor(configLoader);
+};
